@@ -16,10 +16,10 @@
 #
 
 ######################################################################################################
-# 
+#
 # Here you can configure the rules for the proxy.
 # This example is configuration of encrypt rule.
-# 
+#
 ######################################################################################################
 #
 #databaseName: encrypt_db
@@ -70,18 +70,18 @@
 #
 ######################################################################################################
 #
-#databaseName: encrypt_db
-#
-#dataSources:
-#  ds_0:
-#    url: jdbc:mysql://127.0.0.1:3306/demo_ds_0?useSSL=false
-#    username: root
-#    password:
-#    connectionTimeoutMilliseconds: 30000
-#    idleTimeoutMilliseconds: 60000
-#    maxLifetimeMilliseconds: 1800000
-#    maxPoolSize: 50
-#    minPoolSize: 1
+databaseName: encrypt_db
+
+dataSources:
+  ds_0:
+    url: jdbc:mysql://192.168.10.17:3306/esign_contract_0219?useSSL=false
+    username: root
+    password: Sheca@2020
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+    minPoolSize: 1
 #  ds_1:
 #    url: jdbc:mysql://127.0.0.1:3306/demo_ds_1?useSSL=false
 #    username: root
@@ -91,23 +91,23 @@
 #    maxLifetimeMilliseconds: 1800000
 #    maxPoolSize: 50
 #    minPoolSize: 1
-#
-#rules:
-#- !ENCRYPT
-#  encryptors:
-#    aes_encryptor:
-#      type: AES
-#      props:
-#        aes-key-value: 123456abc
-#        digest-algorithm-name: SHA-1
-#  tables:
-#    t_encrypt:
-#      columns:
-#        user_id:
-#          cipher:
-#            name: user_cipher
-#            encryptorName: aes_encryptor
-#        order_id:
-#          cipher:
-#            name: order_encrypt
-#            encryptorName: aes_encryptor
+
+rules:
+- !ENCRYPT
+  encryptors:
+    aes_encryptor:
+      type: AES
+      props:
+        aes-key-value: 123456abc
+        digest-algorithm-name: SHA-1
+  tables:
+    t_encrypt:
+      columns:
+        user_id:
+          cipher:
+            name: user_cipher
+            encryptorName: aes_encryptor
+        order_id:
+          cipher:
+            name: order_encrypt
+            encryptorName: aes_encryptor

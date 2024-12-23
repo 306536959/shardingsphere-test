@@ -51,14 +51,14 @@ public final class ProxyStandaloneContainerConfigurationFactory {
         Map<String, String> result = new HashMap<>(3, 1F);
         result.put("/env/common/standalone/proxy/conf/logback.xml", ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "logback.xml");
         result.put("/env/scenario/" + scenario + "/proxy/conf/" + databaseType.getType().toLowerCase(), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER);
-        result.put(getGlobalYamlPath(scenario, databaseType), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "global.yaml");
+        result.put(getGlobalYamlPath(scenario, databaseType), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "conf/global.yaml");
         return result;
     }
     
     @NotNull
     private static String getGlobalYamlPath(final String scenario, final DatabaseType databaseType) {
         if (isDialectScenarioGlobalYamlExists(scenario, databaseType)) {
-            return "/env/scenario/" + scenario + "/proxy/mode/standalone/" + databaseType.getType().toLowerCase() + "/global.yaml";
+            return "/env/scenario/" + scenario + "/proxy/mode/standalone/" + databaseType.getType().toLowerCase() + "/conf/global.yaml";
         }
         if (isScenarioGlobalYamlExists(scenario)) {
             return "/env/scenario/" + scenario + "/proxy/mode/standalone/global.yaml";
@@ -67,7 +67,7 @@ public final class ProxyStandaloneContainerConfigurationFactory {
     }
     
     private static boolean isDialectScenarioGlobalYamlExists(final String scenario, final DatabaseType databaseType) {
-        URL url = Thread.currentThread().getContextClassLoader().getResource("env/scenario/" + scenario + "/proxy/mode/standalone/" + databaseType.getType().toLowerCase() + "/global.yaml");
+        URL url = Thread.currentThread().getContextClassLoader().getResource("env/scenario/" + scenario + "/proxy/mode/standalone/" + databaseType.getType().toLowerCase() + "/conf/global.yaml");
         return null != url;
     }
     

@@ -54,7 +54,7 @@ public final class ProxyClusterContainerConfigurationFactory {
     
     private static Map<String, String> getMountedResource(final String scenario, final DatabaseType databaseType) {
         Map<String, String> result = new HashMap<>(2, 1F);
-        result.put(String.format("/env/%s/global.yaml", databaseType.getType().toLowerCase()), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "global.yaml");
+        result.put(String.format("/env/%s/global.yaml", databaseType.getType().toLowerCase()), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "conf/global.yaml");
         result.put("/env/scenario/" + scenario + "/proxy/conf/" + databaseType.getType().toLowerCase(), ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER);
         return result;
     }

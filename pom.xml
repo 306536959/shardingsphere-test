@@ -47,7 +47,40 @@
         
         <module>distribution</module>
     </modules>
-    
+    <repositories>
+        <!-- 阿里云公共仓库 -->
+        <repository>
+            <id>aliyun-public</id>
+            <name>Aliyun Public Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- 如果需要其他特定仓库，可以继续添加 -->
+    </repositories>
+
+    <pluginRepositories>
+        <!-- 阿里云插件仓库 -->
+        <pluginRepository>
+            <id>aliyun-plugin-public</id>
+            <name>Aliyun Plugin Public Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+
+        <!-- 如果需要其他特定插件仓库，可以继续添加 -->
+    </pluginRepositories>
+
     <properties>
         <!-- Environments -->
         <java.version>1.8</java.version>

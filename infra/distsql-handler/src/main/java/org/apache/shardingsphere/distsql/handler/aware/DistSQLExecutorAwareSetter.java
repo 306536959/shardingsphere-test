@@ -20,7 +20,7 @@ package org.apache.shardingsphere.distsql.handler.aware;
 import lombok.RequiredArgsConstructor;
 import org.apache.shardingsphere.distsql.handler.engine.DistSQLConnectionContext;
 import org.apache.shardingsphere.distsql.handler.engine.update.rdl.rule.spi.global.GlobalRuleDefinitionExecutor;
-import org.apache.shardingsphere.distsql.statement.DistSQLStatement;
+import org.apache.shardingsphere.distsql.statement.*;
 import org.apache.shardingsphere.distsql.statement.rql.rule.global.ShowGlobalRulesStatement;
 import org.apache.shardingsphere.infra.exception.core.ShardingSpherePreconditions;
 import org.apache.shardingsphere.infra.exception.generic.UnsupportedSQLOperationException;

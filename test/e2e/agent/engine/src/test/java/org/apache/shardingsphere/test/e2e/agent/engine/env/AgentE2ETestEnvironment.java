@@ -143,7 +143,7 @@ public final class AgentE2ETestEnvironment {
     
     private AdaptorContainerConfiguration getAdaptorContainerConfiguration() {
         Map<String, String> mountedResources = new HashMap<>(3, 1F);
-        mountedResources.put("/env/proxy/conf/global.yaml", ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "global.yaml");
+        mountedResources.put("/env/proxy/conf/global.yaml", ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "conf/global.yaml");
         mountedResources.put("/env/proxy/conf/database-db.yaml", ProxyContainerConstants.CONFIG_PATH_IN_CONTAINER + "database-db.yaml");
         if (!Strings.isNullOrEmpty(testConfig.getPluginType())) {
             mountedResources.put(String.format("/env/agent/conf/%s/agent.yaml", testConfig.getPluginType()), ProxyContainerConstants.AGENT_CONFIG_PATH_IN_CONTAINER + "agent.yaml");
