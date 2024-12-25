@@ -16,6 +16,7 @@
 #
 
 org.apache.shardingsphere.mask.algorithm.hash.MD5MaskAlgorithm
+org.apache.shardingsphere.mask.algorithm.hash.SHA256MaskAlgorithm
 org.apache.shardingsphere.mask.algorithm.cover.KeepFirstNLastMMaskAlgorithm
 org.apache.shardingsphere.mask.algorithm.cover.KeepFromXToYMaskAlgorithm
 org.apache.shardingsphere.mask.algorithm.cover.MaskAfterSpecialCharsAlgorithm

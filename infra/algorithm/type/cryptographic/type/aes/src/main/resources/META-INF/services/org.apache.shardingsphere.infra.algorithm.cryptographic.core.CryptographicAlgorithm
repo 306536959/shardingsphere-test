@@ -16,3 +16,4 @@
 #
 
 org.apache.shardingsphere.infra.algorithm.cryptographic.aes.AESCryptographicAlgorithm
+org.apache.shardingsphere.infra.algorithm.cryptographic.aes.SM4CryptographicAlgorithm

@@ -77,51 +77,42 @@
 #
 ######################################################################################################
 #
-#databaseName: mask_db
-#
-#dataSources:
-#  ds_0:
-#    url: jdbc:mysql://127.0.0.1:3306/demo_ds_0?useSSL=false
-#    username: root
-#    password:
-#    connectionTimeoutMilliseconds: 30000
-#    idleTimeoutMilliseconds: 60000
-#    maxLifetimeMilliseconds: 1800000
-#    maxPoolSize: 50
-#    minPoolSize: 1
-#  ds_1:
-#    url: jdbc:mysql://127.0.0.1:3306/demo_ds_1?useSSL=false
-#    username: root
-#    password:
-#    connectionTimeoutMilliseconds: 30000
-#    idleTimeoutMilliseconds: 60000
-#    maxLifetimeMilliseconds: 1800000
-#    maxPoolSize: 50
-#    minPoolSize: 1
-#
-#rules:
-#- !MASK
-#  tables:
-#    t_user:
-#      columns:
-#        password:
-#          maskAlgorithm: md5_mask
-#        email:
-#          maskAlgorithm: mask_before_special_chars_mask
-#        telephone:
-#          maskAlgorithm: keep_first_n_last_m_mask
-#
-#  maskAlgorithms:
-#    md5_mask:
-#      type: MD5
-#    mask_before_special_chars_mask:
-#      type: MASK_BEFORE_SPECIAL_CHARS
-#      props:
-#        special-chars: '@'
-#        replace-char: '*'
-#    keep_first_n_last_m_mask:
-#      type: KEEP_FIRST_N_LAST_M
-#      props:
-#        first-n: 3
-#        last-m: 4
-#        replace-char: '*'
+databaseName: mask_db
+
+dataSources:
+  ds_0:
+    url: jdbc:mysql://192.168.8.55:3306/test_db?useSSL=false
+    username: root
+    password: custle@2021
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+    minPoolSize: 1
+
+rules:
+- !MASK
+  tables:
+    t_user:
+      columns:
+        password:
+          maskAlgorithm: sha256_mask
+        email:
+          maskAlgorithm: mask_before_special_chars_mask
+        telephone:
+          maskAlgorithm: keep_first_n_last_m_mask
+
+  maskAlgorithms:
+    sha256_mask:
+      type: SHA256
+    mask_before_special_chars_mask:
+      type: MASK_BEFORE_SPECIAL_CHARS
+      props:
+        special-chars: '@'
+        replace-char: '*'
+    keep_first_n_last_m_mask:
+      type: KEEP_FIRST_N_LAST_M
+      props:
+        first-n: 3
+        last-m: 4
+        replace-char: '*'

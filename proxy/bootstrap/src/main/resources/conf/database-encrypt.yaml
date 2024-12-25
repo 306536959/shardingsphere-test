@@ -74,9 +74,9 @@ databaseName: encrypt_db
 
 dataSources:
   ds_0:
-    url: jdbc:mysql://192.168.10.17:3306/esign_contract_0219?useSSL=false
+    url: jdbc:mysql://192.168.8.55:3306/test_db?useSSL=false
     username: root
-    password: Sheca@2020
+    password: custle@2021
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
@@ -96,18 +96,17 @@ rules:
 - !ENCRYPT
   encryptors:
     aes_encryptor:
-      type: AES
+      type: SM4
       props:
-        aes-key-value: 123456abc
-        digest-algorithm-name: SHA-1
+        sm4-key-value: xTzkoFMuVYbzwzJr
   tables:
-    t_encrypt:
+    t_user:
       columns:
-        user_id:
+        password:
           cipher:
-            name: user_cipher
+            name: password
             encryptorName: aes_encryptor
-        order_id:
+        email:
           cipher:
-            name: order_encrypt
+            name: email
             encryptorName: aes_encryptor

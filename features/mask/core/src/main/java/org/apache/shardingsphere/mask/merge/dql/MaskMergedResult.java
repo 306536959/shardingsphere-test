@@ -47,26 +47,45 @@ public final class MaskMergedResult implements MergedResult {
     public boolean next() throws SQLException {
         return mergedResult.next();
     }
-    
+
+    /**
+     * 根据列索引和类型获取值。
+     * 首先尝试查找是否存在对应的列投影，如果不存在或对应的表没有掩码规则，或找不到具体的掩码算法，则直接返回合并结果的原始值。
+     * 如果存在对应的列投影、掩码表和掩码算法，则获取原始值并应用掩码算法后返回。
+     *
+     * @param columnIndex 列索引。
+     * @param type 期望的值类型。
+     * @return 应用掩码算法后的值或原始值。
+     * @throws SQLException 如果获取值失败。
+     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public Object getValue(final int columnIndex, final Class<?> type) throws SQLException {
+        // 尝试查找列投影
         Optional<ColumnProjection> columnProjection = selectStatementContext.getProjectionsContext().findColumnProjection(columnIndex);
         if (!columnProjection.isPresent()) {
             return mergedResult.getValue(columnIndex, type);
         }
+        String value = columnProjection.get().getOriginalTable().getValue();
+        System.out.println(value);
+        // 查找掩码表
         Optional<MaskTable> maskTable = maskRule.findMaskTable(columnProjection.get().getOriginalTable().getValue());
         if (!maskTable.isPresent()) {
             return mergedResult.getValue(columnIndex, type);
         }
+        String value1 = columnProjection.get().getName().getValue();
+        System.out.println(value1);
+        // 查找掩码算法
         Optional<MaskAlgorithm> maskAlgorithm = maskTable.get().findAlgorithm(columnProjection.get().getName().getValue());
         if (!maskAlgorithm.isPresent()) {
             return mergedResult.getValue(columnIndex, type);
         }
+        // 获取原始值并应用掩码算法
         Object originalValue = mergedResult.getValue(columnIndex, Object.class);
         return null == originalValue ? null : maskAlgorithm.get().mask(originalValue);
     }
-    
+
+
     @Override
     public Object getCalendarValue(final int columnIndex, final Class<?> type, final Calendar calendar) throws SQLException {
         return mergedResult.getCalendarValue(columnIndex, type, calendar);

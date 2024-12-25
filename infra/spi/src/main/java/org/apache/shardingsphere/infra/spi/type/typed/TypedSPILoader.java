@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import org.apache.shardingsphere.infra.spi.ShardingSphereServiceLoader;
 import org.apache.shardingsphere.infra.spi.exception.ServiceProviderNotFoundException;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -56,7 +57,8 @@ public final class TypedSPILoader {
         if (null == type) {
             return findDefaultService(serviceInterface);
         }
-        for (T each : ShardingSphereServiceLoader.getServiceInstances(serviceInterface)) {
+        Collection<T> serviceInstances = ShardingSphereServiceLoader.getServiceInstances(serviceInterface);
+        for (T each : serviceInstances) {
             if (matchesType(type, each)) {
                 each.init(null == props ? new Properties() : convertToStringTypedProperties(props));
                 return Optional.of(each);
