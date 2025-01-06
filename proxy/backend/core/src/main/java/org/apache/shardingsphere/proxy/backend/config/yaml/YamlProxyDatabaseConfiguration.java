@@ -18,6 +18,7 @@
 package org.apache.shardingsphere.proxy.backend.config.yaml;
 
 import com.google.common.base.Strings;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shardingsphere.infra.util.yaml.YamlConfiguration;
@@ -31,8 +32,7 @@ import java.util.Map;
 /**
  * YAML database configuration for ShardingSphere-Proxy.
  */
-@Getter
-@Setter
+@Data
 public final class YamlProxyDatabaseConfiguration implements YamlConfiguration {
     
     private String databaseName;

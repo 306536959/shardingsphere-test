@@ -18,6 +18,7 @@
 package org.apache.shardingsphere.db.protocol.mysql.packet.binlog.row;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.db.protocol.mysql.constant.MySQLBinlogEventType;
 import org.apache.shardingsphere.db.protocol.mysql.packet.binlog.AbstractMySQLBinlogEventPacket;
 import org.apache.shardingsphere.db.protocol.mysql.packet.binlog.MySQLBinlogEventHeader;
@@ -36,6 +37,7 @@ import java.util.List;
  * @see <a href="https://dev.mysql.com/doc/dev/mysql-server/latest/classbinary__log_1_1Rows__event.html">ROWS_EVENT</a>
  * @see <a href="https://mariadb.com/kb/en/rows_event_v1v2-rows_compressed_event_v1/">ROWS_EVENT</a>
  */
+@Slf4j
 @Getter
 public final class MySQLBinlogRowsEventPacket extends AbstractMySQLBinlogEventPacket {
     
@@ -106,6 +108,7 @@ public final class MySQLBinlogRowsEventPacket extends AbstractMySQLBinlogEventPa
             MySQLBinlogColumnDef columnDef = columnDefs.get(i);
             result[i] = nullBitmap.isNullParameter(i) ? null : MySQLBinlogProtocolValueFactory.getBinlogProtocolValue(columnDef.getColumnType()).read(columnDef, payload);
         }
+
         return result;
     }
     

@@ -257,7 +257,11 @@
                 <artifactId>j2objc-annotations</artifactId>
                 <version>${j2objc-annotations.version}</version>
             </dependency>
-            
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>4.9.3</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>

@@ -100,12 +100,17 @@ public final class ShardingSphereProxy {
             }
         });
     }
-    
+
+    //启动netty
     private List<ChannelFuture> startInternal(final int port, final List<String> addresses) throws InterruptedException {
         ServerBootstrap bootstrap = new ServerBootstrap();
         initServerBootstrap(bootstrap);
         List<ChannelFuture> result = new ArrayList<>(addresses.size());
         for (String each : addresses) {
+            // 将当前配置的Bootstrap实例绑定到指定的端口上，并同步等待操作完成
+            // 参数 each 代表当前处理的Bootstrap实例
+            // 参数 port 代表要绑定的端口号
+            // 返回值为ChannelFuture实例，表示异步操作的结果
             result.add(bootstrap.bind(each, port).sync());
         }
         return result;
@@ -119,22 +124,40 @@ public final class ShardingSphereProxy {
     
     private void accept(final List<ChannelFuture> futures) throws InterruptedException {
         log.info("ShardingSphere-Proxy {} mode started successfully", ProxyContext.getInstance().getContextManager().getComputeNodeInstanceContext().getModeConfiguration().getType());
+      //启动成功后关闭通道
         for (ChannelFuture each : futures) {
             each.channel().closeFuture().sync();
         }
     }
     
+    /**
+     * 初始化Netty服务器配置
+     * 此方法配置Netty服务器的启动参数，包括线程组、通道、选项和处理器
+     *
+     * @param bootstrap ServerBootstrap实例，用于配置服务器
+     */
     private void initServerBootstrap(final ServerBootstrap bootstrap) {
+        // 获取服务器backlog配置
         Integer backLog = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getProps().<Integer>getValue(ConfigurationPropertyKey.PROXY_NETTY_BACKLOG);
+
+        // 配置服务器的线程组和通道
         bootstrap.group(bossGroup, workerGroup)
                 .channel(Epoll.isAvailable() ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
+                // 配置写缓冲区水位线，用于控制内存使用
                 .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024 * 1024, 16 * 1024 * 1024))
+                // 使用池化字节缓冲区分配器，提高内存使用效率
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                // 允许地址重用，方便在服务器重启时快速绑定端口
                 .option(ChannelOption.SO_REUSEADDR, true)
+                // 配置backlog参数，控制连接队列长度
                 .option(ChannelOption.SO_BACKLOG, backLog)
+                // 为子通道配置池化字节缓冲区分配器
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                // 开启TCP_NODELAY选项，减少网络延迟
                 .childOption(ChannelOption.TCP_NODELAY, true)
+                // 添加日志处理器，记录服务器启动和运行信息
                 .handler(new LoggingHandler(LogLevel.INFO))
+                // 添加服务器处理器初始化器，用于初始化处理器管道
                 .childHandler(new ServerHandlerInitializer(FrontDatabaseProtocolTypeFactory.getDatabaseType()));
     }
     
