@@ -67,16 +67,17 @@
 ######################################################################################################
 #
 # If you want to connect to MySQL, you should manually copy MySQL driver to lib directory.
-#
+#obd display-trace 79610fae-cf33-11ef-a72b-00d86181e417
+
 ######################################################################################################
 #
 databaseName: encrypt_db
 
 dataSources:
   ds_0:
-    url: jdbc:mysql://192.168.8.55:3306/test_db?useSSL=false
+    url: jdbc:mysql://192.168.8.55:2881/vpn_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
     username: root
-    password: custle@2021
+    password: 123456
     connectionTimeoutMilliseconds: 30000
     idleTimeoutMilliseconds: 60000
     maxLifetimeMilliseconds: 1800000
